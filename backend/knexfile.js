@@ -5,13 +5,14 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
+      database: 'bossabox',
       user : 'root',
-      database : 'bossabox',
-      filename: './src/database/db.mysql'
+      password: 'password',
+      filename: './src/database/db.mysql',
     },
     migrations: {
-      directory: './src/database/migrations',
-    }
+      directory: './src/database/migrate',
+    },
   },
 
   staging: {

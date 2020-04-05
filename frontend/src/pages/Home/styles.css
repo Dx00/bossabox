@@ -1,28 +1,20 @@
-body {
-    margin: 0;
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-    background-color: #f1f1f1;
-}
 
 section.list ul.description {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    align-items: center;
+    justify-content: center;
     margin: 10px auto;
     list-style: none;
     padding: 0;
 }
 
 section.list ul.description li {
-    margin: 10 auto;
     width: 100%;
+    margin-top: 15px;
     max-width: 500px;
-    border: 1px solid black;
     background: #fff;    
     padding: 10px;
-    margin: 10px auto;
 }
 
 section.list ul li div h4 {
@@ -30,13 +22,17 @@ section.list ul li div h4 {
     padding: 0;
 }
 
-section.list div.description button {
-    top: 100px
-}
 
 section.list ul.description li div.remover{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+
+section.list ul.description li div.remover button:hover {
+    transition: 0.2s;
+    opacity: 0.7;
 }
 
 section header {
@@ -46,6 +42,8 @@ section header {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    color: white;
+    font-size: 20px;
 }
 
 section header div {
@@ -56,17 +54,20 @@ section header div {
     justify-content: space-between;
 }
 
-section header div label input {
-    margin-left: -90px;
-    margin-top: 10px;
+
+section header div label {
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
-section header div input.search {
-    padding: 5px;
-} 
-
 section header div button {
-    margin-right: 12px;
+    background-color: green;
+}
+
+section header div button:hover {
+    opacity: 0.7;
+    transition: 0.2s;
 }
 
 section section.form {
@@ -79,7 +80,12 @@ section section.form {
     display: none;
 }
 
-
+button.remover {
+    background-color: #fff;
+    border: 0;
+    margin-top: -5px;
+    color: red;
+}
 
 
 

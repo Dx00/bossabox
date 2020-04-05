@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
 import './styles.css';
+
+import { MdAdd, MdClear } from 'react-icons/md';
 import api from '../../services/api';
 
 
@@ -25,9 +26,9 @@ export default function Home(){
                     }
                  })
                 .then(response => {
-                    if(response !== [] || response == ''){
+                    if(response != [] || response != ''){
                         setTitle(response.data);
-                    } else {
+                    } else if(response == []) {
                         setTitle(['nada']);
                     }
                 })
@@ -39,7 +40,7 @@ export default function Home(){
         add();
 
 
-    } else if(checkbox == true){
+    } else if(checkbox === true){
         async function add(){ // busca repositorios
             try {
                 api.get(`/repositories`, { 
@@ -48,14 +49,14 @@ export default function Home(){
                     }
                  })
                 .then(response => {
-                    if(response !== [] || response == ''){
+                    if(response !== [] || response !== ''){
                         setTitle(response.data);
                     } else {
-                        setTitle(['nada']);
+                        setTitle('Nenhum repositorio cadastrado');
                     }
                 });
             } catch (error) {
-                alert('Houve um erro')
+                alert('Houve um erro');
             }
         }
     
@@ -64,17 +65,15 @@ export default function Home(){
         
     }
 
-
     function handleChange(event){
         setName(event.target.value)
         setTag(event.target.value)
     }
 
-
     function handleCheck(event){
-        if(checkbox == true){
+        if(checkbox === true){
             setCheck(event.target.value = false)
-        } else if(checkbox == false){
+        } else if(checkbox === false){
             setCheck(event.target.value = true)
         }
     }
@@ -83,8 +82,21 @@ export default function Home(){
         history.push('/add');
     }
 
-    return(
+  
 
+    async function handleRemove(id){
+
+        let data = {
+            repoId: id
+        }
+        
+        await api.delete('/repositories', {data})
+        .then(response => {if(response){alert('removido com sucesso')}})
+
+    }
+
+
+    return(
     <section>
         <header>
             <h1>VUTTR</h1>
@@ -94,28 +106,27 @@ export default function Home(){
                 <label>
                     <input type="checkbox" onChange={handleCheck} value={checkbox} />Search in tags only
                 </label>
-                <button onClick={handleClick} >Adicionar</button>
+                <button onClick={handleClick}> <MdAdd size={15} color="#fff" /> Adicionar</button>
             </div>
         </header>
         <section id="form">
 
         </section>
+        
        <section id="form" className="list">
-
-            
+        
             <ul className="description">
                 {title.map(itens => (
                      <li key={itens.id}>
                      <div className="remover">
-                     <a href={itens.tool_link}>{itens.tool}</a>
-                         <button>Remover</button>
+                         <a href={itens.tool_link}>{itens.tool}</a>
+                         <button className="remover" onClick={() => handleRemove(itens.id)}><MdClear size={15} />Remover</button>
                      </div>
-                     <p>{itens.description_tool}</p>
+                     <p>Descrição: {itens.description_tool}</p>
                      <strong>Tags: {itens.tag}</strong>
                  </li>
                 ))} 
             </ul> 
-
 
        </section>
     </section>

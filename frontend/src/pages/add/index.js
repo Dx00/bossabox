@@ -4,16 +4,19 @@ import { useHistory } from 'react-router-dom';
 import './styles.css';
 
 import api from '../../services/api';
+import Home from '../../pages/Home'
 
 export default function Add(){
 
     const [tool, setTool] = useState('');
-    const [tool_link, setToolLink] = useState('');
+    const [tool_link, setToolLink] = useState('https://');
     const [description_tool, setDescription] = useState('');
     const [tag, setTag] = useState('');
     const history = useHistory();
 
     async function handleSubmit(event){
+
+        event.preventDefault();
 
         let data = {
             tool,
@@ -25,7 +28,9 @@ export default function Add(){
         try {
             api.post('/add', data)
             .then((response) => {
-                alert('Cadastrado com sucesso')
+                alert('Cadastrado com sucesso');
+
+                history.push('/')
             });
         } catch (error) {
             alert(error);
@@ -33,7 +38,7 @@ export default function Add(){
     }
 
 
-    return(
+    return(            
         <section className="add">
             <form onSubmit={handleSubmit} >
                 
@@ -46,7 +51,7 @@ export default function Add(){
 
                 <label>
                     <strong><p>Tool Link</p></strong>
-                    <input type="text" onChange={(e) => setToolLink(e.target.value)} placeholder="Tool link" />
+                    <input type="text" onChange={(e) => setToolLink(e.target.value)} value={tool_link} placeholder="Tool link" />
                 </label>
 
                 <label>
